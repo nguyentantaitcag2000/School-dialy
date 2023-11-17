@@ -25,7 +25,7 @@ Route::get('/', function () {
     // $x = $thong_tin_khu_tro[0]['diachi'];
     // $y = $thong_tin_truong_dai_hoc[0]->diachi;
     $thong_tin_loai_phong = thong_tin_loai_phong::get();
-    $thong_tin_chu_tro = thong_tin_chu_tro::get();
+    $thong_tin_chu_tro = thong_tin_chu_tro::with('nhaTro')->get();
     $tinhtrang = tinhtrang::get();
     return view('welcome',[
         'thong_tin_truong_dai_hoc' => $thong_tin_truong_dai_hoc,

@@ -62,14 +62,20 @@
                                     <button onclick="OpenModalUpdateChuTro({{$value}})" class="btn btn-link text-start" type="button">Edit</button>    
                                 </div>
                                 
-                                <div class="collapse multi-collapse" id="Collapse_{{$value['id']}}">
-                                    <div class="card card-body">
+                                <div class="collapse multi-collapse " id="Collapse_{{$value['id']}}">
+                                    <div class="card card-body" style="background-color: #a6d2ff;">
                                         <h5>Thông tin chủ trọ</h5>
                                         <hr>
                                         <b>Họ tên:</b> <span>{{$value['hoten']}}</span>
                                         <b>Giới tính:</b> <span>{{$value['gioitinh']}}</span>
                                         <b>SĐT:</b> <span>{{$value['SDT']}}</span>
 
+                                        <div class="d-flex">
+                                            <b>Số nhà trọ sở hữu:</b> 
+                                            <span class="badge bg-success ms-2">{{count($value['nhaTro'])}}</span>
+
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             <?php }?>
@@ -96,7 +102,7 @@
                                 </div>
                                 
                                 <div class="collapse multi-collapse" id="Collapse_{{$value['id']}}">
-                                    <div class="card card-body">
+                                    <div class="card card-body" style="background-color: #a6d2ff;">
                                         <h5>Địa chỉ</h5>
                                         <hr>
                                         <b>Đường:</b> <span>{{$value['diachi']['tenduong']}}</span>
@@ -104,11 +110,13 @@
                                         <b>Huyện:</b> <span>{{$value['diachi']['tenhuyen']}}</span>
                                         <b>Tỉnh:</b> <span>{{$value['diachi']['tentinh']}}</span>
                                         <b>Số nhà:</b> <span>{{$value['diachi']['sonha']}}</span>
+                                        <b>latLng:</b> <span>{{$value['toadoGPS']}}</span>
+
                                         <hr>
                                         <h5>Thông tin chi tiết trọ</h5>
                                         <hr>
                                         <b>Loại phòng:</b> <span>{{$value['loaiPhong']['tenloai']}}</span>
-                                        <b>Giá thuê:</b> <span>{{$value['loaiPhong']['giathue']}}</span>
+                                        <b>Giá thuê:</b> <span>{{number_format($value['loaiPhong']['giathue'], 2)}} VND</span>
                                         <b>Diện tích:</b> <span>{{$value['loaiPhong']['dientich']}}</span>
                                         <b>Số người ở:</b> <span>{{$value['loaiPhong']['songuoio']}}</span>
                                         @if($value['tinhtrang']['id'] == 3)
@@ -122,7 +130,6 @@
                                         <b>Họ tên:</b> <span>{{$value['chutro']['hoten']}}</span>
                                         <b>Giới tính:</b> <span>{{$value['chutro']['gioitinh']}}</span>
                                         <b>SĐT:</b> <span>{{$value['chutro']['SDT']}}</span>
-                                        <b>latLng:</b> <span>{{$value['toadoGPS']}}</span>
 
                                     </div>
                                 </div>
@@ -138,7 +145,7 @@
                 </button>
                 <div class="collapse" id="collapseExample2">
                     
-                    <div class="card card-body">
+                    <div class="card card-body ">
                         <ul class="list-group">
                             <?php 
                             foreach($thong_tin_truong_dai_hoc as $key => $value){ ?>
@@ -155,7 +162,7 @@
                                     <button onclick="OpenModalUpdateTruong({{$value}})" class="btn btn-link text-start" type="button">Edit</button>    
                                 </div>
                                 <div class="collapse multi-collapse" id="Collapse2_{{$value['id']}}">
-                                    <div class="card card-body">
+                                    <div class="card card-body" style="background-color: #a6d2ff;">
                                         <b>Đường:</b> <span>{{$value['diachi']['tenduong']}}</span>
                                         <b>Xã:</b> <span>{{$value['diachi']['tenxa']}}</span>
                                         <b>Huyện:</b> <span>{{$value['diachi']['tenhuyen']}}</span>
@@ -493,8 +500,10 @@
 let thong_tin_truong_dai_hoc = <?=$thong_tin_truong_dai_hoc?>;
 let thong_tin_khu_tro = <?=$thong_tin_khu_tro?>;
 let thong_tin_loai_phong = <?=$thong_tin_loai_phong?>;
+let thong_tin_chu_tro = <?=$thong_tin_chu_tro?>;
 console.log('thong_tin_khu_tro',thong_tin_khu_tro);
 console.log('thong_tin_truong_dai_hoc',thong_tin_truong_dai_hoc);
+console.log('thong_tin_chu_tro',thong_tin_chu_tro);
 var map = L.map('map').setView([10.029938, 105.768433], 16);
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
