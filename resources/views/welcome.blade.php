@@ -46,7 +46,40 @@
         </div>
         <div class="row">
             <div class="col-3">
-                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDSChutro" aria-expanded="false" aria-controls="collapseDSChutro">
+                    Danh sách chủ trọ
+                </button>
+                <div class="collapse" id="collapseDSChutro">
+                    <div class="card card-body">
+                        <ul class="list-group">
+                            <?php 
+                            foreach($thong_tin_chu_tro as $key => $value){ ?>
+                                <li onclick="goto(this)" data-info="{{$value['hoten']}}" data-id="{{$value['id']}}" data-latlng="{{$value['toadoGPS']}}" class=" btn btn-light text-start  list-group-item">{{$value['hoten']}}
+                                    <svg onclick="removeChuTro(<?=$value['id']?>)" style="position: absolute; right: 10;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                                </li>
+                                <div class="d-flex">
+                                    <button class="btn btn-link text-start" type="button" data-bs-toggle="collapse" data-bs-target="#Collapse_{{$value['id']}}" aria-expanded="false" aria-controls="multiCollapseExample2">Chi tiết</button>    
+                                    <button onclick="OpenModalUpdateChuTro({{$value}})" class="btn btn-link text-start" type="button">Edit</button>    
+                                </div>
+                                
+                                <div class="collapse multi-collapse" id="Collapse_{{$value['id']}}">
+                                    <div class="card card-body">
+                                        <h5>Thông tin chủ trọ</h5>
+                                        <hr>
+                                        <b>Họ tên:</b> <span>{{$value['hoten']}}</span>
+                                        <b>Giới tính:</b> <span>{{$value['gioitinh']}}</span>
+                                        <b>SĐT:</b> <span>{{$value['SDT']}}</span>
+
+                                    </div>
+                                </div>
+                            <?php }?>
+                        
+                        </ul>
+                        
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-primary mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Danh sách nhà trọ
                 </button>
                 <div class="collapse" id="collapseExample">
@@ -64,18 +97,28 @@
                                 
                                 <div class="collapse multi-collapse" id="Collapse_{{$value['id']}}">
                                     <div class="card card-body">
+                                        <h5>Địa chỉ</h5>
+                                        <hr>
                                         <b>Đường:</b> <span>{{$value['diachi']['tenduong']}}</span>
                                         <b>Xã:</b> <span>{{$value['diachi']['tenxa']}}</span>
                                         <b>Huyện:</b> <span>{{$value['diachi']['tenhuyen']}}</span>
                                         <b>Tỉnh:</b> <span>{{$value['diachi']['tentinh']}}</span>
                                         <b>Số nhà:</b> <span>{{$value['diachi']['sonha']}}</span>
+                                        <hr>
+                                        <h5>Thông tin chi tiết trọ</h5>
+                                        <hr>
+                                        <b>Loại phòng:</b> <span>{{$value['loaiPhong']['tenloai']}}</span>
+                                        <b>Giá thuê:</b> <span>{{$value['loaiPhong']['giathue']}}</span>
+                                        <b>Diện tích:</b> <span>{{$value['loaiPhong']['dientich']}}</span>
+                                        <b>Số người ở:</b> <span>{{$value['loaiPhong']['songuoio']}}</span>
                                         @if($value['tinhtrang']['id'] == 3)
                                             <b>Tình trạng:</b> <span class="badge bg-success">{{$value['tinhtrang']['ten']}}</span>
                                         @else
                                             <b>Tình trạng:</b> <span class="badge bg-danger">{{$value['tinhtrang']['ten']}}</span>
                                         @endif
-
+                                        <hr>
                                         <h5>Thông tin chủ trọ</h5>
+                                        <hr>
                                         <b>Họ tên:</b> <span>{{$value['chutro']['hoten']}}</span>
                                         <b>Giới tính:</b> <span>{{$value['chutro']['gioitinh']}}</span>
                                         <b>SĐT:</b> <span>{{$value['chutro']['SDT']}}</span>
@@ -99,10 +142,14 @@
                         <ul class="list-group">
                             <?php 
                             foreach($thong_tin_truong_dai_hoc as $key => $value){ ?>
-                         
-                                <li onclick="goto(this)" data-info="{{$value['tentruong']}}" data-id="{{$value['id']}}" data-latlng="{{$value['toadoGPS']}}" class="btn btn-light text-start  list-group-item">{{$value['tentruong']}}
-                                    <svg onclick="removeTruong(this)" style="position: absolute; right: 10;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
-                                </li>
+                                <div class="d-flex">
+                                    <img width="50" height="50" src="{{$value['icon']}}" />
+                                    <li onclick="goto(this)" data-info="{{$value['tentruong']}}" data-id="{{$value['id']}}" data-latlng="{{$value['toadoGPS']}}"
+                                         class="btn btn-light text-start  list-group-item w-100">{{$value['tentruong']}}
+                                        <svg onclick="removeTruong(this)" style="position: absolute; right: 10;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
+                                    </li>
+                                </div>
+                                
                                 <div class="d-flex">
                                     <button class="btn btn-link text-start" type="button" data-bs-toggle="collapse" data-bs-target="#Collapse2_{{$value['id']}}" aria-expanded="false" aria-controls="multiCollapseExample2">Chi tiết</button>    
                                     <button onclick="OpenModalUpdateTruong({{$value}})" class="btn btn-link text-start" type="button">Edit</button>    
@@ -123,6 +170,8 @@
                 </div>
                 <hr>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#doKhoangCach">Đo khoảng cách</button>
+                <br>
+                <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#modelThemChuTro">Thêm chủ trọ</button>
                 <div class="modal" id="doKhoangCach" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -163,6 +212,67 @@
                         </div>
                     </div>
                 </div>  
+                <div class="modal" id="modelThemChuTro" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Thêm chủ trọ mới</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                                <label for="basic-url" class="form-label">Họ tên chủ trọ: </label>
+                                <input id="hoTen" value="" class="form-control" />
+
+                                <label for="basic-url" class="form-label">Giới tính chủ trọ: </label>
+                                <div class="input-group mb-3">
+                                    <select id="sex" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                        <option selected value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    </select>
+                                </div>   
+
+                                <label for="basic-url" class="form-label">SĐT chủ trọ: </label>
+                                <input id="SDT" value="" class="form-control" />
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button id="closeModalInsertLocation" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button onclick="ThemChuTro()" type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>  
+                <div class="modal" id="modelUpdateChuTro" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Cập nhất chủ trọ</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                                <input hidden id="idChuTro_Update" />
+                                <label for="basic-url" class="form-label">Họ tên chủ trọ: </label>
+                                <input id="hoTen_Update" value="" class="form-control" />
+
+                                <label for="basic-url" class="form-label">Giới tính chủ trọ: </label>
+                                <div class="input-group mb-3">
+                                    <select id="sex_Update" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                        <option selected value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    </select>
+                                </div>   
+
+                                <label for="basic-url" class="form-label">SĐT chủ trọ: </label>
+                                <input id="SDT_Update" value="" class="form-control" />
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button id="closeModalInsertLocation" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button onclick="CapNhatChuTro()" type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>  
             </div>
             <div class="col-9">
                 <div id="map"></div>
@@ -192,10 +302,19 @@
                                 <div class="input-group mb-3">
                                     <input id="nameTro" value="" class="form-control" />
                                 </div>
+                                <label for="basic-url" class="form-label">Chủ trọ: </label>
+                                <div class="input-group mb-3">
+                                    <select id="chutroSelect" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                        <option selected>Chọn 1 chủ trọ</option>
+                                        <?php foreach($thong_tin_chu_tro as $key => $value){ ?>
+                                        <option value="<?=$value['id']?>">{{$value['hoten']}}</option>
+                                        <?php }?>
+                                    </select>
+                                </div>
                                 <label for="basic-url" class="form-label">Loại phòng: </label>
                                 <div class="input-group mb-3">
                                     <select id="loaiphongSelect" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                        <option selected>Open this select menu</option>
+                                        <option selected>Chọn 1 loại phòng</option>
                                         <?php foreach($thong_tin_loai_phong as $key => $value){ ?>
                                         <option value="<?=$value['id']?>">{{$value['tenloai']}}</option>
                                         <?php }?>
@@ -204,28 +323,16 @@
 
                                 <label for="basic-url" class="form-label">Số nhà: </label>
                                 <input id="soNha" value="" class="form-control" />
-
-                                
-
-                                <label for="basic-url" class="form-label">Họ tên chủ trọ: </label>
-                                <input id="hoTen" value="" class="form-control" />
-
-                                <label for="basic-url" class="form-label">Giới tính chủ trọ: </label>
-                                <div class="input-group mb-3">
-                                    <select id="sex" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                        <option selected value="Nam">Nam</option>
-                                        <option value="Nữ">Nữ</option>
-                                    </select>
-                                </div>   
-
-                                <label for="basic-url" class="form-label">SĐT chủ trọ: </label>
-                                <input id="SDT" value="" class="form-control" />
                                 
                         </div>
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                 <label for="basic-url" class="form-label">Tên trường học: </label>
                                 <div class="input-group mb-3">
                                     <input id="nameTruong" value="" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Icon Trường</label>
+                                    <input class="form-control" type="file" id="iconTruong">
                                 </div>
                         </div>
                         <!-- DIA CHI -->
@@ -314,24 +421,7 @@
                             <label for="basic-url" class="form-label">Tên tỉnh: </label>
                             <input id="tenTinh_updateTro" value="" class="form-control" />
 
-                            <h5>Thông tin chủ trọ</h5>
-                            <input id="id_chutro_update" hidden class="form-control" />
                             
-
-                            <label for="basic-url" class="form-label">Họ tên chủ trọ: </label>
-                            <input id="hoTen_update" value="" class="form-control" />
-
-                            <label for="basic-url" class="form-label">Giới tính chủ trọ: </label>
-                            <div class="input-group mb-3">
-                                <select id="sex_update" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                    <option selected value="Nam">Nam</option>
-                                    <option value="Nữ">Nữ</option>
-                                </select>
-                            </div>   
-
-                            <label for="basic-url" class="form-label">SĐT chủ trọ: </label>
-                            <input id="SDT_update" value="" class="form-control" />
-
                         </div>
                         
                     </div>
@@ -381,6 +471,10 @@
 
                             <label for="basic-url" class="form-label">Tên tỉnh: </label>
                             <input id="tenTinh_updateTruong" value="" class="form-control" />
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Icon Trường</label>
+                                <input class="form-control" type="file" id="iconTruong_Update">
+                            </div>
                         </div>
                         
                     </div>
@@ -600,6 +694,17 @@ var yellowIcon = L.divIcon({
     iconAnchor: [15, 42],
     popupAnchor: [0, -34]
 });
+function OpenModalUpdateChuTro(value)
+{
+    console.log(value);
+    $('#hoTen_Update').val(value.hoten);
+    $('#sex_Update').val(value.gioitinh);
+    $('#SDT_Update').val(value.SDT);
+    $('#idChuTro_Update').val(value.id);
+
+    $('#modelUpdateChuTro').modal('show');
+
+}
 function OpenModalUpdateTro(value)
 {
     console.log(value);
@@ -650,6 +755,49 @@ function removeTruong(icon)
             $.ajax({
                 type: 'POST',
                 url: '/api/truong/delete-location', // Đường dẫn xử lý lưu dữ liệu
+                dataType: 'json',
+                data: {
+                    // nameTruong: nameTruong,
+                    id: id,
+                },
+                success: function(response) {
+                    // Xử lý thành công
+                    if (response.status === 'success') {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Deleted",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        document.location.reload();
+                    } else {
+                        // Xử lý lỗi
+                        alert('Có lỗi xảy ra khi lưu dữ liệu.');
+                    }
+                },
+
+                error: function() {
+                    // Xử lý lỗi kết nối
+                    alert('Không thể kết nối đến máy chủ.');
+                }
+            });
+           
+        }
+    });
+}
+function removeChuTro(id)
+{
+    Swal.fire({
+        title: "Bạn có thực sự muốn xóa, nó sẽ xóa tất cả nhà trọ thuộc chủ trọ này",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/delete-chuTro', // Đường dẫn xử lý lưu dữ liệu
                 dataType: 'json',
                 data: {
                     // nameTruong: nameTruong,
@@ -787,53 +935,75 @@ $('#saveButton_updateTruong').on('click', function() {
     var id_diachi = $('#id_diachitruong_update').val();
     var latLng = $('#latLngTruong_update').val();
 
+
     var nameTruong = $('#nameTruong_update').val();
+    var iconTruong_Update = $('#iconTruong_Update')[0];
     var tenDuong = $('#tenDuong_updateTruong').val();
     var tenXa = $('#tenXa_updateTruong').val();
     var tenHuyen = $('#tenHuyen_updateTruong').val();
     var tenTinh = $('#tenTinh_updateTruong').val();
     
-
-    // Xác định tab hiện tại (Nhà trọ hoặc Trường học)
-    var activeTab = $('#pills-tab .nav-link.active').attr('id');
-    var locationType = (activeTab === 'pills-home-tab') ? 'nhatro' : 'truonghoc';
-    // Gửi dữ liệu lên server để lưu vào cơ sở dữ liệu
-    $.ajax({
-        type: 'POST',
-        url: '/api/update-location-truong', // Đường dẫn xử lý lưu dữ liệu
-        dataType: 'json',
-        data: {
-            id: id,
-            id_diachi: id_diachi,
-            nameTruong: nameTruong,
-            toadoGPS: latLng,
-            type: locationType,
-            tenDuong: tenDuong,
-            tenXa: tenXa,
-            tenHuyen: tenHuyen,
-            tenTinh: tenTinh
-        },
-        success: function(response) {
-            // Xử lý thành công
-            if (response.status === 'success') {
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Updated",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                document.location.reload();
-            } else {
-                // Xử lý lỗi
-                alert('Có lỗi xảy ra khi lưu dữ liệu.');
+    // Lấy ra base64 của icon
+    var file = iconTruong_Update.files[0];
+    function thucHienUpdate (base64Data = "")
+    {
+        // Xác định tab hiện tại (Nhà trọ hoặc Trường học)
+        var activeTab = $('#pills-tab .nav-link.active').attr('id');
+        var locationType = (activeTab === 'pills-home-tab') ? 'nhatro' : 'truonghoc';
+        // Gửi dữ liệu lên server để lưu vào cơ sở dữ liệu
+        $.ajax({
+            type: 'POST',
+            url: '/api/update-location-truong', // Đường dẫn xử lý lưu dữ liệu
+            dataType: 'json',
+            data: {
+                id: id,
+                id_diachi: id_diachi,
+                nameTruong: nameTruong,
+                toadoGPS: latLng,
+                type: locationType,
+                tenDuong: tenDuong,
+                tenXa: tenXa,
+                tenHuyen: tenHuyen,
+                icon: base64Data,
+                tenTinh: tenTinh
+            },
+            success: function(response) {
+                // Xử lý thành công
+                if (response.status === 'success') {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Updated",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    document.location.reload();
+                } else {
+                    // Xử lý lỗi
+                    alert('Có lỗi xảy ra khi lưu dữ liệu.');
+                }
+            },
+            error: function() {
+                // Xử lý lỗi kết nối
+                alert('Không thể kết nối đến máy chủ.');
             }
-        },
-        error: function() {
-            // Xử lý lỗi kết nối
-            alert('Không thể kết nối đến máy chủ.');
-        }
-    });
+        });
+    }
+    if (file) {
+        console.log('B:', file);
+        var reader = new FileReader();
+        
+        reader.onload = function (e) {
+            var base64Data = e.target.result;
+            thucHienUpdate(base64Data);
+        };
+
+        reader.readAsDataURL(file);
+    }
+    else
+    {
+        thucHienUpdate();
+    }
 });
 $('#saveButton_updateTro').on('click', function() {
     // Lấy giá trị từ form
@@ -905,89 +1075,232 @@ $('#saveButton_updateTro').on('click', function() {
         }
     });
 });
-$('#saveButton').on('click', function() {
+function ThemChuTro() {
     // Lấy giá trị từ form
-    var nameTruong = $('#nameTruong').val();
-    var nameTro = $('#nameTro').val();
-    var soNha = $('#soNha').val();
     var hoTen = $('#hoTen').val();
     var sex = $('#sex').val();
     var SDT = $('#SDT').val();
+            // Gửi dữ liệu lên server để lưu vào cơ sở dữ liệu
+            $.ajax({
+                type: 'POST',
+                url: '/api/add-chuTro', // Đường dẫn xử lý lưu dữ liệu
+                dataType: 'json',
+                data: {
+                    hoTen: hoTen,
+                    sex: sex,
+                    SDT: SDT,
+                },
+                success: function(response) {
+                    // Xử lý thành công
+                    if (response.status === 'success') {
+                        
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Thêm thành công",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        document.location.reload();
+                    } else {
+                        // Xử lý lỗi
+                        alert('Có lỗi xảy ra khi lưu dữ liệu.');
+                    }
+                },
+                error: function() {
+                    // Xử lý lỗi kết nối
+                    alert('Không thể kết nối đến máy chủ.');
+                }
+            });
+    
+}
+function CapNhatChuTro() {
+    // Lấy giá trị từ form
+    var hoTen = $('#hoTen_Update').val();
+    var sex = $('#sex_Update').val();
+    var SDT = $('#SDT_Update').val();
+    var id = $('#idChuTro_Update').val();
+            // Gửi dữ liệu lên server để lưu vào cơ sở dữ liệu
+            $.ajax({
+                type: 'POST',
+                url: '/api/update-chuTro', // Đường dẫn xử lý lưu dữ liệu
+                dataType: 'json',
+                data: {
+                    hoTen: hoTen,
+                    sex: sex,
+                    SDT: SDT,
+                    id: id,
+                },
+                success: function(response) {
+                    // Xử lý thành công
+                    if (response.status === 'success') {
+                        
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Cập nhật thành công",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        document.location.reload();
+                    } else {
+                        // Xử lý lỗi
+                        alert('Có lỗi xảy ra khi lưu dữ liệu.');
+                    }
+                },
+                error: function() {
+                    // Xử lý lỗi kết nối
+                    alert('Không thể kết nối đến máy chủ.');
+                }
+            });
+    
+}
+$('#saveButton').on('click', function() {
+    // Lấy giá trị từ form
+    var nameTruong = $('#nameTruong').val();
+    var iconTruong = $('#iconTruong')[0];
+    var nameTro = $('#nameTro').val();
+    var soNha = $('#soNha').val();
+    
     var tenDuong = $('#tenDuong').val();
     var tenXa = $('#tenXa').val();
     var tenHuyen = $('#tenHuyen').val();
     var tenTinh = $('#tenTinh').val();
     
+    // Lấy ra base64 của icon
+    var file = iconTruong.files[0];
+    function thucHienUpdate (base64Data = "")
+    {
+        // Xác định tab hiện tại (Nhà trọ hoặc Trường học)
+        var activeTab = $('#pills-tab .nav-link.active').attr('id');
+        var locationType = (activeTab === 'pills-home-tab') ? 'nhatro' : 'truonghoc';
+        // Gửi dữ liệu lên server để lưu vào cơ sở dữ liệu
+        $.ajax({
+            type: 'POST',
+            url: '/api/update-location-truong', // Đường dẫn xử lý lưu dữ liệu
+            dataType: 'json',
+            data: {
+                id: id,
+                id_diachi: id_diachi,
+                nameTruong: nameTruong,
+                toadoGPS: latLng,
+                type: locationType,
+                tenDuong: tenDuong,
+                tenXa: tenXa,
+                tenHuyen: tenHuyen,
+                icon: base64Data,
+                tenTinh: tenTinh
+            },
+            success: function(response) {
+                // Xử lý thành công
+                if (response.status === 'success') {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Updated",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    document.location.reload();
+                } else {
+                    // Xử lý lỗi
+                    alert('Có lỗi xảy ra khi lưu dữ liệu.');
+                }
+            },
+            error: function() {
+                // Xử lý lỗi kết nối
+                alert('Không thể kết nối đến máy chủ.');
+            }
+        });
+    }
+    function insertLocation(base64Data = "")
+    {
+        var lastLocation = savedLocations[savedLocations.length - 1]; // Lấy phần tử cuối cùng
+            if (lastLocation) {
+                var lat = lastLocation.latlng.lat;
+                var lng = lastLocation.latlng.lng;
+                
+                // Tiếp theo, bạn có thể sử dụng lat và lng trong quá trình lưu dữ liệu.
+            }
 
+            // Xác định tab hiện tại (Nhà trọ hoặc Trường học)
+            var activeTab = $('#pills-tab .nav-link.active').attr('id');
+            var locationType = (activeTab === 'pills-home-tab') ? 'nhatro' : 'truonghoc';
+            // Gửi dữ liệu lên server để lưu vào cơ sở dữ liệu
+            $.ajax({
+                type: 'POST',
+                url: '/api/add-location', // Đường dẫn xử lý lưu dữ liệu
+                dataType: 'json',
+                data: {
+                    nameTruong: nameTruong,
+                    nameTro: nameTro,
+                    lat: lat,
+                    lng: lng,
+                    type: locationType,
+                    loaiphong: $('#loaiphongSelect').val(),
+                    chuTro: $('#chutroSelect').val(),
+                    soNha: soNha,
+                 
+                    tenDuong: tenDuong,
+                    tenXa: tenXa,
+                    tenHuyen: tenHuyen,
+                    icon: base64Data,
+                    tenTinh: tenTinh
+                },
+                success: function(response) {
+                    // Xử lý thành công
+                    if (response.status === 'success') {
+                        // Thêm marker mới vào bản đồ
+                        var marker = L.marker([lat, lng]).addTo(map);
+                        if(locationType == 'truonghoc')
+                        {
+                            marker.bindPopup(nameTruong);
+                            lastLocation.name = nameTruong;
+                        }
+                        else
+                        {
+                            marker.bindPopup(nameTro);
+                            lastLocation.name = nameTro;
 
+                            // Đặt biểu tượng cho marker thành redIcon
+                            marker.setIcon(redIcon);
 
+                        }
 
-    var lastLocation = savedLocations[savedLocations.length - 1]; // Lấy phần tử cuối cùng
-    if (lastLocation) {
-        var lat = lastLocation.latlng.lat;
-        var lng = lastLocation.latlng.lng;
+                        marker.openPopup();
+                        
+                        // Đóng modal
+                        $('#newPositionModal').modal('hide');
+                    } else {
+                        // Xử lý lỗi
+                        alert('Có lỗi xảy ra khi lưu dữ liệu.');
+                    }
+                },
+                error: function() {
+                    // Xử lý lỗi kết nối
+                    alert('Không thể kết nối đến máy chủ.');
+                }
+            });
+    }
+    if (file) {
+        console.log('B:', file);
+        var reader = new FileReader();
         
-        // Tiếp theo, bạn có thể sử dụng lat và lng trong quá trình lưu dữ liệu.
+        reader.onload = function (e) {
+            var base64Data = e.target.result;
+            insertLocation(base64Data);
+        };
+
+        reader.readAsDataURL(file);
+    }
+    else
+    {
+        insertLocation();
     }
 
-    // Xác định tab hiện tại (Nhà trọ hoặc Trường học)
-    var activeTab = $('#pills-tab .nav-link.active').attr('id');
-    var locationType = (activeTab === 'pills-home-tab') ? 'nhatro' : 'truonghoc';
-    // Gửi dữ liệu lên server để lưu vào cơ sở dữ liệu
-    $.ajax({
-        type: 'POST',
-        url: '/api/add-location', // Đường dẫn xử lý lưu dữ liệu
-        dataType: 'json',
-        data: {
-            nameTruong: nameTruong,
-            nameTro: nameTro,
-            lat: lat,
-            lng: lng,
-            type: locationType,
-            loaiphong: $('#loaiphongSelect').val(),
-            soNha: soNha,
-            hoTen: hoTen,
-            sex: sex,
-            SDT: SDT,
-            tenDuong: tenDuong,
-            tenXa: tenXa,
-            tenHuyen: tenHuyen,
-            tenTinh: tenTinh
-        },
-        success: function(response) {
-            // Xử lý thành công
-            if (response.status === 'success') {
-                // Thêm marker mới vào bản đồ
-                var marker = L.marker([lat, lng]).addTo(map);
-                if(locationType == 'truonghoc')
-                {
-                    marker.bindPopup(nameTruong);
-                    lastLocation.name = nameTruong;
-                }
-                else
-                {
-                    marker.bindPopup(nameTro);
-                    lastLocation.name = nameTro;
 
-                    // Đặt biểu tượng cho marker thành redIcon
-                    marker.setIcon(redIcon);
 
-                }
-
-                marker.openPopup();
-                
-                // Đóng modal
-                $('#newPositionModal').modal('hide');
-            } else {
-                // Xử lý lỗi
-                alert('Có lỗi xảy ra khi lưu dữ liệu.');
-            }
-        },
-        error: function() {
-            // Xử lý lỗi kết nối
-            alert('Không thể kết nối đến máy chủ.');
-        }
-    });
+    
 });
 //Chuc nang tim kiem
 function searchTro(keyword) {

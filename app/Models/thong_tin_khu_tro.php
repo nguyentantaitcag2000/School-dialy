@@ -29,4 +29,9 @@ class thong_tin_khu_tro extends Model
     {
         return $this->belongsTo(thong_tin_chu_tro::class, 'id_chutro', 'id');
     }
+    function loaiPhong()
+    {
+        return $this->belongsTo(thong_tin_loai_phong::class, 'loaiphong', 'id');
+    }
+    
 }

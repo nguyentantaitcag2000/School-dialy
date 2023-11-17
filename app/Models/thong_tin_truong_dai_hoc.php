@@ -14,6 +14,7 @@ class thong_tin_truong_dai_hoc extends Model
     protected $fillable = [
         'tentruong',
         'toadoGPS',
+        'icon',
         'id_diachi'
     ];
     function diachi()
